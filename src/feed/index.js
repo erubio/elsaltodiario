@@ -24,10 +24,10 @@ const processFeed = (data) => {
 };
 
 const generateFeedSpeach = (processedEntries) => {
-  const speachParts = processedEntries.map((procesedEntity) => {
-    return `${procesedEntity.title} ${texts.shortPause} ${procesedEntity.content} ${procesedEntity.category} ${texts.of} ${procesedEntity.author}`;
+  const speachParts = processedEntries.map((procesedEntity, index) => {
+    return `${procesedEntity.title} ${texts.shortPause} ${procesedEntity.content} ${procesedEntity.category} ${texts.of} ${procesedEntity.author} ${index < 5 ? texts.transition : texts.shortPause}`;
   });
-  return speachParts.join(texts.transition);
+  return speachParts.join('');
 };
 
 const getFeedData = (url, callback) => {
