@@ -18,6 +18,6 @@ skillBuilder.addRequestHandlers(
 
 initCache();
 
-app.post("/saltodiario", adapter.getRequestHandlers());
+app.post("/elsaltodiario", adapter.getRequestHandlers());
 
 app.listen(PORT);
