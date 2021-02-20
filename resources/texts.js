@@ -8,7 +8,7 @@ module.exports = {
     title: 'El salto diario',
     transition: `<audio src="${constants.doamin}/audio/transition.mp3" />`,
     of: 'de',
-    welcomeText: 'Bienvenida a "el salto diario", donde te informaremos de las últimas noticias. Quieres conocer la edición general u otras secciones como: Actualidad, El salmón contracorriente o Radical Magazine?',
+    welcomeText: 'Bienvenida a "el salto diario", donde te informaremos de las últimas noticias. Quieres conocer la edición general? o prefieres otras secciones como: Actualidad, El salmón contracorriente o Radical Magazine?',
     welcomeTextCard: 'El Salto diario, secciones disponibles: General\nActualidad\nEl salmón contracorriente\nRadical Magazine',
     
 }
