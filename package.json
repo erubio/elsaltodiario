@@ -1,0 +1,22 @@
+{
+  "name": "saltodiario",
+  "version": "1.0.0",
+  "description": "Skill para leer las noticias de \"El salto diario\" en Alexa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ezequiel Rubio <eze@rebelprogrammer.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ask-sdk-core": "^2.10.1",
+    "ask-sdk-express-adapter": "^2.10.0",
+    "ask-sdk-model": "^1.34.1",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "eslint": "^7.20.0"
+  }
+}
