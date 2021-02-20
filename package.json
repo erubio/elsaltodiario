@@ -4,6 +4,7 @@
   "description": "Skill para leer las noticias de \"El salto diario\" en Alexa",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ezequiel Rubio <eze@rebelprogrammer.com>",
