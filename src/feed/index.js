@@ -6,6 +6,7 @@ const parser = new xml2js.Parser({ attrkey: "type" });
 const feedCache = {};
 const CACHE_TIME = 10 * 60 * 1000; //10 minutes
 
+
 const processContent = (entryContent) => {
   return entryContent.replace(/<.*$/, "");
 };
@@ -26,7 +27,7 @@ const generateFeedSpeach = (processedEntries) => {
   const speachParts = processedEntries.map((procesedEntity) => {
     return `${procesedEntity.title} ${texts.shortPause} ${procesedEntity.content} ${procesedEntity.category} ${texts.of} ${procesedEntity.author}`;
   });
-  return speachParts.join(texts.longPause);
+  return speachParts.join(texts.transition);
 };
 
 const getFeedData = (url, callback) => {

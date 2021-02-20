@@ -9,6 +9,8 @@ const skill = skillBuilder.create();
 const adapter = new ExpressAdapter(skill, true, true);
 const PORT = 8080;
 
+app.use(express.static('public'));
+
 skillBuilder.addRequestHandlers(
   handlers.LaunchRequestHandler,
   handlers.IntentRequestHandler,
