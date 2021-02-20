@@ -6,7 +6,7 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 const handlers = require("./src/handlers");
 const { initCache } = require ("./src/feed");
 const skill = skillBuilder.create();
-const adapter = new ExpressAdapter(skill, false, false);
+const adapter = new ExpressAdapter(skill, true, true);
 const PORT = 8080;
 
 skillBuilder.addRequestHandlers(
