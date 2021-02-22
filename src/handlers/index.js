@@ -35,7 +35,7 @@ module.exports.IntentRequestHandler = {
     }
     return handlerInput.responseBuilder
       .speak(text)
-      .reprompt(sectionReprompt)
+      .reprompt(texts.sectionReprompt)
       .withSimpleCard(texts.title, texts.helpTextCard)
       .getResponse();
   },
