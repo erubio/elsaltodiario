@@ -17,16 +17,15 @@ module.exports.LaunchRequestHandler = {
 module.exports.StopRequestHandler = {
   canHandle(handlerInput) {
     return (
-      handlerInput.requestEnvelope.request.type === "StopIntent" ||
-      handlerInput.requestEnvelope.request.type === "CancelIntent"
+      ["CancelIntent", "SessionEndedRequest", "StopIntent"].indexOf(
+        handlerInput.requestEnvelope.request.type
+      ) !== -1
     );
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder
       .speak(texts.byeText)
-      .reprompt(texts.byeText)
       .withShouldEndSession(true)
-      .withSimpleCard(texts.title, texts.byeText)
       .getResponse();
   },
 };
