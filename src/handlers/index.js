@@ -14,6 +14,36 @@ module.exports.LaunchRequestHandler = {
   },
 };
 
+module.exports.StopRequestHandler = {
+  canHandle(handlerInput) {
+    return (
+      handlerInput.requestEnvelope.request.type === "StopIntent" ||
+      handlerInput.requestEnvelope.request.type === "CancelIntent"
+    );
+  },
+  handle(handlerInput) {
+    return handlerInput.responseBuilder
+      .speak(texts.byeText)
+      .reprompt(texts.byeText)
+      .withShouldEndSession(true)
+      .withSimpleCard(texts.title, texts.byeText)
+      .getResponse();
+  },
+};
+
+module.exports.HelpRequestHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === "HelpIntent";
+  },
+  handle(handlerInput) {
+    return handlerInput.responseBuilder
+      .speak(texts.helpText)
+      .reprompt(texts.helpText)
+      .withSimpleCard(texts.title, texts.helpTextCard)
+      .getResponse();
+  },
+};
+
 module.exports.IntentRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === "IntentRequest";

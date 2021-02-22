@@ -1,6 +1,7 @@
 const constants = require("../src/utils/constants");
 
 module.exports = {
+    byeText: 'Vale! Esperamos que vuelvas pronto para conocer las últimas noticias de El salto diario',
     helpTextCard: 'Recuerda que puedes pedirme las siguientes secciones:\r\nGeneral\r\nActualidad\r\nEl salmón contracorriente\r\nRadical Magazine', 
     error: 'Ups! Vaya! La hemos liado un poco y ahora no te podemos ofrecer las últimas noticias, lo estamos arreglando, pregúntame dentro de un rato a ver si ya hemos encotrado el problema.',
     longPause: '<break time="1.5s" />',
