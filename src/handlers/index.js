@@ -26,17 +26,17 @@ module.exports.IntentRequestHandler = {
       handlerInput.requestEnvelope.request.intent.slots.Sections.value;
     switch (handlerInput.requestEnvelope.request.intent.name) {
       case "GetSection":
-        text = feed.getSpeachBySection(section);
+        text = feed.getSpeechBySection(section);
         break;
 
       default:
-        text = feed.getSpeachBySection("general");
+        text = feed.getSpeechBySection("general");
         break;
     }
     return handlerInput.responseBuilder
       .speak(text)
       .reprompt(sectionReprompt)
-      .withSimpleCard(texts.helpTextCard)
+      .withSimpleCard(texts.title, texts.helpTextCard)
       .getResponse();
   },
 };

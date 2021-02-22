@@ -81,7 +81,7 @@ module.exports.loadAndRefreshFeedCache = () => {
   setInterval(() => getFeeds(), CACHE_TIME);
 };
 
-module.exports.getSpeachBySection = (section) => {
+module.exports.getSpeechBySection = (section) => {
   if (/general/i.test(section)) {
     return feedCache.general;
   } else if (/actualidad/i.test(section)) {
