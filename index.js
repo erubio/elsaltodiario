@@ -4,7 +4,7 @@ const Alexa = require("ask-sdk-core");
 const app = express();
 const skillBuilder = Alexa.SkillBuilders.custom();
 const handlers = require("./src/handlers");
-const { initCache } = require ("./src/feed");
+const { loadAndRefreshFeedCache } = require ("./src/feed");
 const skill = skillBuilder.create();
 const adapter = new ExpressAdapter(skill, true, true);
 const PORT = 8080;
@@ -16,8 +16,9 @@ skillBuilder.addRequestHandlers(
   handlers.IntentRequestHandler,
 );
 
-initCache();
+loadAndRefreshFeedCache();
 
 app.post("/elsaltodiario", adapter.getRequestHandlers());
+app.get("/elsaltodiario", adapter.getRequestHandlers());
 
 app.listen(PORT);

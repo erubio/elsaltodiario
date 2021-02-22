@@ -25,7 +25,7 @@ const processFeed = (data) => {
 
 const generateFeedSpeach = (processedEntries) => {
   const speachParts = processedEntries.map((procesedEntity, index) => {
-    return `${procesedEntity.title} ${texts.shortPause} ${procesedEntity.content} ${procesedEntity.category} ${texts.of} ${procesedEntity.author} ${index < 5 ? texts.transition : texts.shortPause}`;
+    return `${procesedEntity.title} ${texts.shortPause} ${procesedEntity.content} ${procesedEntity.category} ${texts.of} ${procesedEntity.author} ${index < 5 ? texts.transition : texts.longPause}`;
   });
   return speachParts.join('');
 };
@@ -76,12 +76,12 @@ const getFeeds = () => {
   });
 };
 
-module.exports.initCache = () => {
+module.exports.loadAndRefreshFeedCache = () => {
   getFeeds();
   setInterval(() => getFeeds(), CACHE_TIME);
 };
 
-module.exports.getFeedSection = (section) => {
+module.exports.getSpeachBySection = (section) => {
   if (/general/i.test(section)) {
     return feedCache.general;
   } else if (/actualidad/i.test(section)) {
