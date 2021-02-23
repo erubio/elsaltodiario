@@ -11,14 +11,15 @@ const PORT = 8080;
 
 app.use(express.static("public"));
 
-skillBuilder.addRequestHandlers(
-  handlers.HelpRequestHandler,
-  handlers.IntentRequestHandler,
-  handlers.LaunchRequestHandler,
-  handlers.SessionEndedRequestHandler,
-  handlers.StopRequestHandler,
-  handlers.ErrorHandler
-);
+skillBuilder
+  .addRequestHandlers(
+    handlers.HelpRequestHandler,
+    handlers.IntentRequestHandler,
+    handlers.LaunchRequestHandler,
+    handlers.SessionEndedRequestHandler,
+    handlers.StopRequestHandler
+  )
+  .addErrorHandlers(handlers.ErrorHandler);
 
 loadAndRefreshFeedCache();
 

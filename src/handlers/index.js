@@ -32,7 +32,7 @@ module.exports.StopRequestHandler = {
 
 module.exports.SessionEndedRequestHandler = {
   canHandle(handlerInput) {
-    return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
+    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder.getResponse();
