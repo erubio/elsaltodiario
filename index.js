@@ -15,7 +15,9 @@ skillBuilder.addRequestHandlers(
   handlers.HelpRequestHandler,
   handlers.IntentRequestHandler,
   handlers.LaunchRequestHandler,
-  handlers.StopRequestHandler
+  handlers.SessionEndedRequestHandler,
+  handlers.StopRequestHandler,
+  handlers.ErrorHandler
 );
 
 loadAndRefreshFeedCache();

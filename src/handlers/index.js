@@ -17,7 +17,7 @@ module.exports.LaunchRequestHandler = {
 module.exports.StopRequestHandler = {
   canHandle(handlerInput) {
     return (
-      ["CancelIntent", "SessionEndedRequest", "StopIntent"].indexOf(
+      ["CancelIntent", "StopIntent"].indexOf(
         handlerInput.requestEnvelope.request.type
       ) !== -1
     );
@@ -26,6 +26,27 @@ module.exports.StopRequestHandler = {
     return handlerInput.responseBuilder
       .speak(texts.byeText)
       .withShouldEndSession(true)
+      .getResponse();
+  },
+};
+
+module.exports.SessionEndedRequestHandler = {
+  canHandle(handlerInput) {
+    return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
+  },
+  handle(handlerInput) {
+    return handlerInput.responseBuilder.getResponse();
+  }
+};
+
+module.exports.ErrorHandler = {
+  canHandle() {
+    return true;
+  },
+  handle(handlerInput) {
+    return handlerInput.responseBuilder
+      .speak(texts.errorText)
+      .reprompt(texts.errorText)
       .getResponse();
   },
 };
@@ -57,9 +78,8 @@ module.exports.IntentRequestHandler = {
       case "GetSection":
         text = feed.getSpeechBySection(section);
         break;
-
       default:
-        text = feed.getSpeechBySection("general");
+        text = texts.helpText;
         break;
     }
     return handlerInput.responseBuilder

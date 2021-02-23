@@ -54,11 +54,6 @@ const getFeed = (url, callback) => {
 };
 
 const getFeeds = () => {
-  getFeed(urls.general, (err, data) => {
-    if (!err) {
-      feedCache.general = data;
-    }
-  });
   getFeed(urls.breaking, (err, data) => {
     if (!err) {
       feedCache.breaking = data;
@@ -82,9 +77,7 @@ module.exports.loadAndRefreshFeedCache = () => {
 };
 
 module.exports.getSpeechBySection = (section) => {
-  if (/general/i.test(section)) {
-    return feedCache.general;
-  } else if (/actualidad/i.test(section)) {
+  if (/actualidad/i.test(section)) {
     return feedCache.breaking;
   } else if (/(magazine|radical)/i.test(section)) {
     return feedCache.radical;
