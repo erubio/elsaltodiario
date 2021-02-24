@@ -14,31 +14,6 @@ module.exports.LaunchRequestHandler = {
   },
 };
 
-module.exports.StopRequestHandler = {
-  canHandle(handlerInput) {
-    return (
-      ["CancelIntent", "StopIntent"].indexOf(
-        handlerInput.requestEnvelope.request.type
-      ) !== -1
-    );
-  },
-  handle(handlerInput) {
-    return handlerInput.responseBuilder
-      .speak(texts.byeText)
-      .withShouldEndSession(true)
-      .getResponse();
-  },
-};
-
-module.exports.SessionEndedRequestHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === "SessionEndedRequest";
-  },
-  handle(handlerInput) {
-    return handlerInput.responseBuilder.getResponse();
-  },
-};
-
 module.exports.ErrorHandler = {
   canHandle() {
     return true;
@@ -74,6 +49,8 @@ module.exports.IntentRequestHandler = {
           .speak(texts.byeText)
           .withShouldEndSession(true)
           .getResponse();
+      case "SessionEndedRequest":
+        return handlerInput.responseBuilder.getResponse();
       default:
         return helpRequestHandler(handlerInput);
     }
