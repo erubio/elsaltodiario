@@ -52,7 +52,11 @@ module.exports.IntentRequestHandler = {
       case "SessionEndedRequest":
         return handlerInput.responseBuilder.getResponse();
       default:
-        return helpRequestHandler(handlerInput);
+        return handlerInput.responseBuilder
+        .speak(texts.sectionReprompt)
+        .reprompt(texts.sectionReprompt)
+        .withSimpleCard(texts.title, texts.helpTextCard)
+        .getResponse();
     }
   },
 };
