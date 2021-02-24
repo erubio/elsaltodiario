@@ -32,11 +32,11 @@ module.exports.StopRequestHandler = {
 
 module.exports.SessionEndedRequestHandler = {
   canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+    return handlerInput.requestEnvelope.request.type === "SessionEndedRequest";
   },
   handle(handlerInput) {
     return handlerInput.responseBuilder.getResponse();
-  }
+  },
 };
 
 module.exports.ErrorHandler = {
@@ -51,41 +51,31 @@ module.exports.ErrorHandler = {
   },
 };
 
-module.exports.HelpRequestHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === "HelpIntent";
-  },
-  handle(handlerInput) {
-    return handlerInput.responseBuilder
-      .speak(texts.helpText)
-      .reprompt(texts.helpText)
-      .withSimpleCard(texts.title, texts.helpTextCard)
-      .getResponse();
-  },
-};
-
 module.exports.IntentRequestHandler = {
   canHandle(handlerInput) {
+    console.log("IntentHAndler: ", handlerInput.requestEnvelope.request.type);
     return handlerInput.requestEnvelope.request.type === "IntentRequest";
   },
   handle(handlerInput) {
-    let text;
     const section =
       handlerInput.requestEnvelope.request.intent.slots &&
       handlerInput.requestEnvelope.request.intent.slots.Sections &&
       handlerInput.requestEnvelope.request.intent.slots.Sections.value;
     switch (handlerInput.requestEnvelope.request.intent.name) {
       case "GetSection":
-        text = feed.getSpeechBySection(section);
-        break;
+        return handlerInput.responseBuilder
+          .speak(feed.getSpeechBySection(section || "breaking"))
+          .reprompt(texts.sectionReprompt)
+          .withSimpleCard(texts.title, texts.helpTextCard)
+          .getResponse();
+      case "AMAZON.CancelIntent":
+      case "AMAZON.StopIntent":
+        return handlerInput.responseBuilder
+          .speak(texts.byeText)
+          .withShouldEndSession(true)
+          .getResponse();
       default:
-        text = texts.helpText;
-        break;
+        return helpRequestHandler(handlerInput);
     }
-    return handlerInput.responseBuilder
-      .speak(text)
-      .reprompt(texts.sectionReprompt)
-      .withSimpleCard(texts.title, texts.helpTextCard)
-      .getResponse();
   },
 };

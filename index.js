@@ -13,11 +13,9 @@ app.use(express.static("public"));
 
 skillBuilder
   .addRequestHandlers(
-    handlers.HelpRequestHandler,
     handlers.IntentRequestHandler,
     handlers.LaunchRequestHandler,
     handlers.SessionEndedRequestHandler,
-    handlers.StopRequestHandler
   )
   .addErrorHandlers(handlers.ErrorHandler);
 
