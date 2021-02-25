@@ -15,7 +15,7 @@ const processFeed = (data) => {
   const entries = data.feed.entry;
   return entries.map((entry) => {
     return {
-      author: entry.author[0].name,
+      author: entry.author ? entry.author[0].name : texts.unknownAuthor,
       category: entry.category[0].type.term,
       content: processContent(entry.content[0]._),
       title: entry.title[0],
@@ -35,7 +35,7 @@ const getFeedData = (url, callback) => {
     .then((res) => res.text())
     .then((body) => {
       parser.parseString(body, function (error, result) {
-        if (error === null) {
+        if (!error) {
           callback(null, processFeed(result));
         } else {
           callback(error);

@@ -16,7 +16,7 @@ module.exports = {
     shortPause: '<break time="1s" />',
     title: 'El salto diario',
     transition: `<audio src="${constants.doamin}/audio/transition.mp3" />`,
+    unknownAuthor: 'Anónimo',
     welcomeText: 'Bienvenida a "el salto diario", donde te informaremos de las últimas noticias. Me puedes pedir las siguientes secciones: Actualidad, El salmón contracorriente o Radical Magazine. ¿Cuál prefieres?',
     welcomeTextCard: 'El Salto diario, secciones disponibles:\r\nActualidad\r\nEl salmón contracorriente\r\nRadical Magazine',
-    
 }

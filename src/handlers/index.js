@@ -26,7 +26,7 @@ module.exports.ErrorHandler = {
   },
 };
 
-const getSectionResoponse = (handlerInput) => {
+const getSectionResponse = (handlerInput) => {
   const section =
     handlerInput.requestEnvelope.request.intent.slots &&
     handlerInput.requestEnvelope.request.intent.slots.Sections &&
@@ -58,7 +58,7 @@ module.exports.IntentRequestHandler = {
   handle(handlerInput) {
     switch (handlerInput.requestEnvelope.request.intent.name) {
       case "GetSection":
-        return getSectionResoponse(handlerInput);
+        return getSectionResponse(handlerInput);
       case "AMAZON.CancelIntent":
       case "AMAZON.StopIntent":
         return getStopResponse(handlerInput);
