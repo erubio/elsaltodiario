@@ -11,7 +11,7 @@ module.exports = {
     otherSections: 'Si quieres conocer más novedades, pídeme alguna de las otras secciones.',
     pause: '<break time="1.5s" />',
     radicalEnd: 'Hasta aquí las novedades del Radical Magazine.',
-    salmonEnd: 'Hasta aquí las novedades del Salmon contracorriente.',
+    salmonEnd: 'Hasta aquí las novedades del Salmón contracorriente.',
     sectionReprompt: 'Puedes pedirme las siguientes secciones:  Actualidad. El salmón contracorriente. Radical Magazine',
     shortPause: '<break time="1s" />',
     title: 'El salto diario',
