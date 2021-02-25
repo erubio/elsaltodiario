@@ -25,7 +25,7 @@ const processFeed = (data) => {
 
 const generateFeedSpeach = (processedEntries) => {
   const speachParts = processedEntries.map((procesedEntity, index) => {
-    return `${procesedEntity.title} ${texts.shortPause} ${procesedEntity.content} ${procesedEntity.category} ${texts.of} ${procesedEntity.author} ${index < 5 ? texts.transition : texts.longPause}`;
+    return `${procesedEntity.title}. ${texts.shortPause} ${procesedEntity.content} ${procesedEntity.category} ${texts.of} ${procesedEntity.author} ${index < 5 ? texts.transition : texts.longPause}`;
   });
   return speachParts.join('');
 };
@@ -54,19 +54,19 @@ const getFeed = (url, callback) => {
 };
 
 const getFeeds = () => {
-  getFeed(urls.breaking, (err, data) => {
+  getFeed(urls.breaking, (err, speechText) => {
     if (!err) {
-      feedCache.breaking = data;
+      feedCache.breaking = `${speechText} ${texts.breakingEnd} ${texts.otherSections}`;
     }
   });
-  getFeed(urls.radical, (err, data) => {
+  getFeed(urls.radical, (err, speechText) => {
     if (!err) {
-      feedCache.radical = data;
+      feedCache.radical = `${speechText} ${texts.radicalEnd} ${texts.otherSections}`;
     }
   });
-  getFeed(urls.salmon, (err, data) => {
+  getFeed(urls.salmon, (err, speechText) => {
     if (!err) {
-      feedCache.salmon = data;
+      feedCache.salmon = `${speechText} ${texts.salmonEnd} ${texts.otherSections}`;
     }
   });
 };
