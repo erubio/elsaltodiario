@@ -1,3 +1,3 @@
 module.exports = {
-  doamin: "https://rebelprogrammer.com"
+  doamin: process.env.ESD_DOMAIN || "https://rebelprogrammer.com"
 };
