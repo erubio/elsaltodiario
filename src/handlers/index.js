@@ -26,37 +26,46 @@ module.exports.ErrorHandler = {
   },
 };
 
+const getSectionResoponse = (handlerInput) => {
+  const section =
+    handlerInput.requestEnvelope.request.intent.slots &&
+    handlerInput.requestEnvelope.request.intent.slots.Sections &&
+    handlerInput.requestEnvelope.request.intent.slots.Sections.value;
+  return handlerInput.responseBuilder
+    .speak(feed.getSpeechBySection(section || "breaking"))
+    .reprompt(texts.sectionReprompt)
+    .withSimpleCard(texts.title, texts.helpTextCard)
+    .getResponse();
+};
+
+const getStopResponse = (handlerInput) =>
+  handlerInput.responseBuilder
+    .speak(texts.byeText)
+    .withShouldEndSession(true)
+    .getResponse();
+
+const getHelpResponse = (handlerInput) =>
+  handlerInput.responseBuilder
+    .speak(texts.sectionReprompt)
+    .reprompt(texts.sectionReprompt)
+    .withSimpleCard(texts.title, texts.helpTextCard)
+    .getResponse();
+
 module.exports.IntentRequestHandler = {
   canHandle(handlerInput) {
-    console.log("IntentHAndler: ", handlerInput.requestEnvelope.request.type);
     return handlerInput.requestEnvelope.request.type === "IntentRequest";
   },
   handle(handlerInput) {
-    const section =
-      handlerInput.requestEnvelope.request.intent.slots &&
-      handlerInput.requestEnvelope.request.intent.slots.Sections &&
-      handlerInput.requestEnvelope.request.intent.slots.Sections.value;
     switch (handlerInput.requestEnvelope.request.intent.name) {
       case "GetSection":
-        return handlerInput.responseBuilder
-          .speak(feed.getSpeechBySection(section || "breaking"))
-          .reprompt(texts.sectionReprompt)
-          .withSimpleCard(texts.title, texts.helpTextCard)
-          .getResponse();
+        return getSectionResoponse(handlerInput);
       case "AMAZON.CancelIntent":
       case "AMAZON.StopIntent":
-        return handlerInput.responseBuilder
-          .speak(texts.byeText)
-          .withShouldEndSession(true)
-          .getResponse();
+        return getStopResponse(handlerInput);
       case "SessionEndedRequest":
         return handlerInput.responseBuilder.getResponse();
       default:
-        return handlerInput.responseBuilder
-        .speak(texts.sectionReprompt)
-        .reprompt(texts.sectionReprompt)
-        .withSimpleCard(texts.title, texts.helpTextCard)
-        .getResponse();
+        return getHelpResponse(handlerInput);
     }
   },
 };
