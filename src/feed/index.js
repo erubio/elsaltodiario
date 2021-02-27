@@ -6,7 +6,6 @@ const parser = new xml2js.Parser({ attrkey: "type" });
 const feedCache = {};
 const CACHE_TIME = 10 * 60 * 1000; //10 minutes
 
-
 const processContent = (entryContent) => {
   return entryContent.replace(/<.*$/, "");
 };
@@ -25,50 +24,55 @@ const processFeed = (data) => {
 
 const generateFeedSpeach = (processedEntries) => {
   const speachParts = processedEntries.map((procesedEntity, index) => {
-    return `${procesedEntity.title}. ${texts.shortPause} ${procesedEntity.content} ${procesedEntity.category} ${texts.of} ${procesedEntity.author} ${index < 5 ? texts.transition : texts.longPause}`;
+    return `${procesedEntity.title}. ${texts.shortPause} ${
+      procesedEntity.content
+    } ${procesedEntity.category} ${texts.of} ${procesedEntity.author} ${
+      index < 5 ? texts.transition : texts.longPause
+    }`;
   });
-  return speachParts.join('');
+  return speachParts.join("");
 };
 
-const getFeedData = (url, callback) => {
-  fetch(url)
-    .then((res) => res.text())
-    .then((body) => {
-      parser.parseString(body, function (error, result) {
-        if (!error) {
-          callback(null, processFeed(result));
-        } else {
-          callback(error);
-        }
+const getFeedData = (url) => {
+  return new Promise((resolve, reject) => {
+    fetch(url)
+      .then((res) => res.text())
+      .then((body) => {
+        parser.parseString(body, function (error, result) {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(processFeed(result));
+          }
+        });
+      })
+      .catch((err) => {
+        reject(err);
       });
-    })
-    .catch((err) => {
-      callback(err);
-    });
+  });
 };
 
-const getFeed = (url, callback) => {
-  getFeedData(url, (err, data) => {
-    callback(err, !err ? generateFeedSpeach(data) : "");
+const getFeed = (url) => {
+  return new Promise((resolve, reject) => {
+    getFeedData(url).then((data) => {
+      resolve(generateFeedSpeach(data));
+    }).catch(err => reject(err));
   });
 };
 
 const getFeeds = () => {
-  getFeed(urls.breaking, (err, speechText) => {
-    if (!err) {
-      feedCache.breaking = `${speechText} ${texts.breakingEnd} ${texts.otherSections}`;
-    }
-  });
-  getFeed(urls.radical, (err, speechText) => {
-    if (!err) {
-      feedCache.radical = `${speechText} ${texts.radicalEnd} ${texts.otherSections}`;
-    }
-  });
-  getFeed(urls.salmon, (err, speechText) => {
-    if (!err) {
-      feedCache.salmon = `${speechText} ${texts.salmonEnd} ${texts.otherSections}`;
-    }
-  });
+  getFeed(urls.breaking).then(
+    (speechText) =>
+      (feedCache.breaking = `${speechText} ${texts.breakingEnd} ${texts.otherSections}`)
+  );
+  getFeed(urls.radical).then(
+    (speechText) =>
+      (feedCache.radical = `${speechText} ${texts.radicalEnd} ${texts.otherSections}`)
+  );
+  getFeed(urls.salmon).then(
+    (speechText) =>
+      (feedCache.salmon = `${speechText} ${texts.salmonEnd} ${texts.otherSections}`)
+  );
 };
 
 module.exports.loadAndRefreshFeedCache = () => {
