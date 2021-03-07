@@ -25,7 +25,7 @@ const cacheFeeds = (feeds) => {
         } ${texts.otherSections}`;
         break;
       case SALMON:
-        speechCache.breaking = `${generateFeedSpeach(feed)} ${
+        speechCache.salmon = `${generateFeedSpeach(feed)} ${
           texts.salmonEnd
         } ${texts.otherSections}`;
         break;
