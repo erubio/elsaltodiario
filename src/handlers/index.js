@@ -31,11 +31,19 @@ const getSectionResponse = (handlerInput) => {
     handlerInput.requestEnvelope.request.intent.slots &&
     handlerInput.requestEnvelope.request.intent.slots.Sections &&
     handlerInput.requestEnvelope.request.intent.slots.Sections.value;
-  return handlerInput.responseBuilder
-    .speak(speech.getSpeechBySection(section || "breaking"))
-    .reprompt(texts.sectionReprompt)
-    .withSimpleCard(texts.title, texts.helpTextCard)
-    .getResponse();
+  if (section) {
+    if (/(radical|magazine|actualidad|salmon|contracorriente)/.test(section)) {
+      return handlerInput.responseBuilder
+        .speak(speech.getSpeechBySection(section))
+        .reprompt(texts.sectionReprompt)
+        .withSimpleCard(texts.title, texts.helpTextCard)
+        .getResponse();
+    } else {
+      return getHelpResponse(handlerInput);
+    }
+  } else {
+    return getStopResponse(handlerInput);
+  }
 };
 
 const getStopResponse = (handlerInput) =>

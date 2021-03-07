@@ -26,12 +26,12 @@ const cacheFeeds = (feeds) => {
         break;
       case SALMON:
         speechCache.breaking = `${generateFeedSpeach(feed)} ${
-          texts.radicalEnd
+          texts.salmonEnd
         } ${texts.otherSections}`;
         break;
       case RADICAL:
-        speechCache.breaking = `${generateFeedSpeach(feed)} ${
-          texts.salmonEnd
+        speechCache.radical = `${generateFeedSpeach(feed)} ${
+          texts.radicalEnd
         } ${texts.otherSections}`;
         break;
     }
