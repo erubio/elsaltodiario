@@ -1,5 +1,5 @@
 const texts = require("../../resources/texts");
-const feed = require("../feed");
+const speech = require("../speech");
 
 module.exports.LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -32,7 +32,7 @@ const getSectionResponse = (handlerInput) => {
     handlerInput.requestEnvelope.request.intent.slots.Sections &&
     handlerInput.requestEnvelope.request.intent.slots.Sections.value;
   return handlerInput.responseBuilder
-    .speak(feed.getSpeechBySection(section || "breaking"))
+    .speak(speech.getSpeechBySection(section || "breaking"))
     .reprompt(texts.sectionReprompt)
     .withSimpleCard(texts.title, texts.helpTextCard)
     .getResponse();
