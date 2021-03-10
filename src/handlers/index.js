@@ -70,10 +70,16 @@ module.exports.IntentRequestHandler = {
       case "AMAZON.CancelIntent":
       case "AMAZON.StopIntent":
         return getStopResponse(handlerInput);
-      case "SessionEndedRequest":
-        return handlerInput.responseBuilder.getResponse();
       default:
         return getHelpResponse(handlerInput);
     }
+  },
+};
+module.exports.SessionEndRequestHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === "SessionEndedRequest";
+  },
+  handle(handlerInput) {
+    return getStopResponse(handlerInput);
   },
 };
